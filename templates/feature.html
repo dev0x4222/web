@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ feature_name }} - Dev0x4 AOV Tool</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="me-2">🛠️</span>Dev0x4 AOV Tool
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" title="Trang chủ">
+                            <i class="bi bi-house-fill"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide" title="Hướng dẫn">
+                            <i class="bi bi-book-fill"></i> Hướng dẫn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" title="Thông tin">
+                            <i class="bi bi-info-circle-fill"></i> Thông tin
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/download" title="Tải về">
+                            <i class="bi bi-download"></i> Tải về
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Thông báo flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show mb-4">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body text-center py-5">
+                        <h1 class="display-5 fw-bold text-primary mb-3">{{ feature_name }}</h1>
+                        <p class="lead mb-4">{{ feature_description }}</p>
+                        
+                        <div class="alert alert-info">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3 fs-4">
+                                    <i class="bi bi-info-circle"></i>
+                                </div>
+                                <div class="text-start">
+                                    <p class="mb-0">Tính năng này hiện đang được cung cấp trong phiên bản GUI đầy đủ.</p>
+                                    <p class="mb-0">Vui lòng tải về phiên bản desktop để sử dụng tất cả các tính năng.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="/download" class="btn btn-lg btn-primary mt-4">
+                            <i class="bi bi-download me-2"></i>Tải về phiên bản đầy đủ
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+                        <h2 class="h4 mb-3 pb-2 border-bottom">Về tính năng này</h2>
+                        <p>{{ feature_description }} Đây là một trong những tính năng nâng cao của Dev0x4 Tool, được thiết kế để mang lại trải nghiệm tốt nhất cho người dùng.</p>
+                        
+                        <div class="alert alert-secondary">
+                            <div class="d-flex">
+                                <div class="me-3">
+                                    <i class="bi bi-lightbulb fs-4"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0">
+                                        <strong>Cập nhật:</strong> Chúng tôi đang phát triển phiên bản web cho tính năng này.
+                                        Hãy kiểm tra lại trong các bản cập nhật sau để xem khi nào tính năng này được hỗ trợ trên web.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Dev0x4 AOV Tool - Web Edition</h5>
+                    <p class="text-muted">Công cụ hỗ trợ cho game Arena of Valor</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <a href="/about" class="text-light me-3">Thông tin</a>
+                        <a href="/guide" class="text-light me-3">Hướng dẫn</a>
+                        <a href="{{ url_for('download') }}" class="text-light">Tải về</a>
+                    </p>
+                    <p class="text-muted">© 2025 Dev0x4 AOV Tool</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

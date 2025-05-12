@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn - Dev0x4 AOV Tool</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="me-2">🛠️</span>Dev0x4 AOV Tool
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" title="Trang chủ">
+                            <i class="bi bi-house-fill"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/guide" title="Hướng dẫn">
+                            <i class="bi bi-book-fill"></i> Hướng dẫn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" title="Thông tin">
+                            <i class="bi bi-info-circle-fill"></i> Thông tin
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/download" title="Tải về">
+                            <i class="bi bi-download"></i> Tải về
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 mb-4">
+                <div class="card shadow-sm border-0 sticky-top" style="top: 1rem; z-index: 10;">
+                    <div class="card-header">
+                        <h5 class="mb-0">Mục lục</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <a href="#getting-started" class="list-group-item list-group-item-action">Bắt đầu sử dụng</a>
+                            <a href="#image-processing" class="list-group-item list-group-item-action">Xử lý ảnh</a>
+                            <a href="#zstd" class="list-group-item list-group-item-action">Nén và giải nén ZSTD</a>
+                            <a href="#mod-tools" class="list-group-item list-group-item-action">Công cụ Mod AOV</a>
+                            <a href="#utility" class="list-group-item list-group-item-action">Tiện ích</a>
+                            <a href="#faq" class="list-group-item list-group-item-action">Câu hỏi thường gặp</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+                        <h1 class="display-5 fw-bold text-primary mb-4">Hướng dẫn sử dụng</h1>
+                        
+                        <div class="alert alert-warning">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3 fs-4">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0">
+                                        <strong>Lưu ý:</strong> Phiên bản web có các tính năng giới hạn.
+                                        Để trải nghiệm đầy đủ, vui lòng <a href="/download" class="alert-link">tải về phiên bản desktop</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <section id="getting-started" class="mb-5">
+                            <h2 class="h3 mb-4 pb-2 border-bottom">Bắt đầu sử dụng</h2>
+                            
+                            <h3 class="h5 mb-3">Cài đặt phiên bản Desktop</h3>
+                            <ol class="mb-4">
+                                <li class="mb-2">Tải về file <code>dev0x4-modernUI.zip</code> từ <a href="/download">trang tải về</a></li>
+                                <li class="mb-2">Giải nén file zip vào thư mục bạn muốn</li>
+                                <li class="mb-2">Đảm bảo bạn đã cài đặt Python 3.8 trở lên</li>
+                                <li class="mb-2">Cài đặt các thư viện cần thiết bằng lệnh: <code>pip install requests pillow numpy pyzstd</code></li>
+                                <li>Chạy ứng dụng bằng lệnh: <code>python main.py</code></li>
+                            </ol>
+                            
+                            <h3 class="h5 mb-3">Sử dụng phiên bản Web</h3>
+                            <ul class="mb-4">
+                                <li class="mb-2">Truy cập trang chủ và chọn tính năng bạn muốn sử dụng</li>
+                                <li class="mb-2">Lưu ý rằng một số tính năng nâng cao chỉ có trong phiên bản desktop</li>
+                                <li>Một số tính năng có thể yêu cầu bạn tải lên tệp để xử lý</li>
+                            </ul>
+                        </section>
+                        
+                        <section id="image-processing" class="mb-5">
+                            <h2 class="h3 mb-4 pb-2 border-bottom">Xử lý ảnh</h2>
+                            
+                            <div class="mb-4">
+                                <h3 class="h5 mb-3">Tách ảnh</h3>
+                                <p>Tính năng này cho phép bạn tách các ảnh lớn thành nhiều ảnh nhỏ hơn theo nhiều tiêu chí khác nhau.</p>
+                                <ol>
+                                    <li class="mb-2">Chọn ảnh nguồn cần tách</li>
+                                    <li class="mb-2">Chọn phương thức tách (theo kích thước, lưới, hoặc màu sắc)</li>
+                                    <li class="mb-2">Cấu hình các tham số tách</li>
+                                    <li>Nhấn "Tách ảnh" để bắt đầu quá trình</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="h5 mb-3">Chuyển ảnh thành văn bản ASCII</h3>
+                                <p>Chuyển đổi ảnh thành nghệ thuật ASCII - rất hữu ích cho việc hiển thị hình ảnh trong môi trường văn bản.</p>
+                                <ol>
+                                    <li class="mb-2">Chọn ảnh nguồn để chuyển đổi</li>
+                                    <li class="mb-2">Chọn bộ ký tự ASCII để sử dụng</li>
+                                    <li class="mb-2">Điều chỉnh độ rộng đầu ra</li>
+                                    <li>Xem trước kết quả và lưu lại nếu cần</li>
+                                </ol>
+                            </div>
+                            
+                            <div>
+                                <h3 class="h5 mb-3">Xóa ảnh đã tạo</h3>
+                                <p>Quản lý và dọn dẹp các ảnh đã tạo bởi công cụ để tiết kiệm không gian lưu trữ.</p>
+                                <ul>
+                                    <li>Chọn thư mục chứa ảnh để quét</li>
+                                    <li>Xem danh sách các ảnh và chọn những ảnh cần xóa</li>
+                                    <li>Nhấn "Xóa ảnh đã chọn" để dọn dẹp</li>
+                                </ul>
+                            </div>
+                        </section>
+                        
+                        <section id="zstd" class="mb-5">
+                            <h2 class="h3 mb-4 pb-2 border-bottom">Nén và giải nén ZSTD</h2>
+                            
+                            <div class="mb-4">
+                                <h3 class="h5 mb-3">Nén tệp ZSTD</h3>
+                                <p>Sử dụng thuật toán nén ZSTD hiệu quả để nén tệp và thư mục với tỷ lệ nén cao.</p>
+                                <ol>
+                                    <li class="mb-2">Chọn tệp hoặc thư mục cần nén</li>
+                                    <li class="mb-2">Chọn mức độ nén (1-22, cao hơn = nén nhiều hơn nhưng chậm hơn)</li>
+                                    <li class="mb-2">Tùy chọn sử dụng từ điển tùy chỉnh</li>
+                                    <li>Nhấn "Bắt đầu nén" để tiến hành</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="h5 mb-3">Giải nén tệp ZSTD</h3>
+                                <p>Giải nén các tệp đã được nén bằng thuật toán ZSTD một cách nhanh chóng.</p>
+                                <ol>
+                                    <li class="mb-2">Chọn tệp ZSTD (.zst) cần giải nén</li>
+                                    <li class="mb-2">Chọn thư mục đích để lưu kết quả giải nén</li>
+                                    <li class="mb-2">Tùy chọn sử dụng từ điển tùy chỉnh (nếu đã dùng khi nén)</li>
+                                    <li>Nhấn "Bắt đầu giải nén" để tiến hành</li>
+                                </ol>
+                            </div>
+                            
+                            <div>
+                                <h3 class="h5 mb-3">Tạo từ điển ZSTD</h3>
+                                <p>Tạo từ điển tùy chỉnh để cải thiện hiệu suất nén cho các tệp có cấu trúc tương tự.</p>
+                                <ol>
+                                    <li class="mb-2">Chọn các tệp mẫu để huấn luyện từ điển</li>
+                                    <li class="mb-2">Chỉ định kích thước từ điển (KB)</li>
+                                    <li class="mb-2">Chọn nơi lưu từ điển</li>
+                                    <li>Nhấn "Tạo từ điển" để bắt đầu quá trình</li>
+                                </ol>
+                            </div>
+                        </section>
+                        
+                        <section id="mod-tools" class="mb-5">
+                            <h2 class="h3 mb-4 pb-2 border-bottom">Công cụ Mod AOV</h2>
+                            
+                            <div class="mb-4">
+                                <h3 class="h5 mb-3">Mod Effect</h3>
+                                <p>Tùy chỉnh và thay đổi hiệu ứng của tướng và trang phục trong game Arena of Valor.</p>
+                                <ol>
+                                    <li class="mb-2">Chọn thư mục chứa tệp game cần mod</li>
+                                    <li class="mb-2">Nhập ID tướng và ID trang phục mục tiêu</li>
+                                    <li class="mb-2">Tùy chọn thay đổi ID âm thanh nếu cần</li>
+                                    <li>Nhấn "Bắt đầu Mod" để tiến hành</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="h5 mb-3">Xem thông tin Mod</h3>
+                                <p>Tra cứu thông tin về các ID tướng, trang phục và hiệu ứng trong game Arena of Valor.</p>
+                                <ul>
+                                    <li class="mb-2">Xem danh sách ID tướng</li>
+                                    <li class="mb-2">Tìm kiếm ID trang phục theo tên tướng</li>
+                                    <li>Xem hướng dẫn chi tiết về cách sử dụng ID</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h3 class="h5 mb-3">Hướng dẫn sử dụng Mod</h3>
+                                <p>Xem hướng dẫn chi tiết về cách cài đặt và sử dụng mod trong game Arena of Valor.</p>
+                                <ul>
+                                    <li class="mb-2">Hướng dẫn về cách cài đặt mod</li>
+                                    <li class="mb-2">Các lưu ý quan trọng khi sử dụng mod</li>
+                                    <li>Cách khắc phục các vấn đề thường gặp</li>
+                                </ul>
+                            </div>
+                        </section>
+                        
+                        <section id="utility" class="mb-5">
+                            <h2 class="h3 mb-4 pb-2 border-bottom">Tiện ích</h2>
+                            
+                            <div class="mb-4">
+                                <h3 class="h5 mb-3">Chatbot Trợ giúp</h3>
+                                <p>Tương tác với chatbot để nhận hỗ trợ và giải đáp các câu hỏi về cách sử dụng công cụ.</p>
+                                <ul>
+                                    <li class="mb-2">Hỏi các câu hỏi về tính năng của công cụ</li>
+                                    <li class="mb-2">Nhận hướng dẫn chi tiết về cách sử dụng</li>
+                                    <li>Báo cáo lỗi và gửi phản hồi</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h3 class="h5 mb-3">Chat với ChatGPT</h3>
+                                <p>Sử dụng AI tiên tiến để nhận hỗ trợ và thông tin chi tiết (yêu cầu API key của OpenAI).</p>
+                                <ol>
+                                    <li class="mb-2">Thiết lập API key OpenAI</li>
+                                    <li class="mb-2">Đặt câu hỏi về bất kỳ chủ đề nào</li>
+                                    <li>Nhận phản hồi chi tiết từ AI</li>
+                                </ol>
+                            </div>
+                            
+                            <div>
+                                <h3 class="h5 mb-3">Xem ZIP</h3>
+                                <p>Xem và kiểm tra nội dung của tệp ZIP mà không cần giải nén.</p>
+                                <ol>
+                                    <li class="mb-2">Chọn tệp ZIP cần xem</li>
+                                    <li class="mb-2">Duyệt qua cấu trúc thư mục bên trong</li>
+                                    <li>Xem thông tin về các tệp (kích thước, ngày tạo)</li>
+                                </ol>
+                            </div>
+                        </section>
+                        
+                        <section id="faq">
+                            <h2 class="h3 mb-4 pb-2 border-bottom">Câu hỏi thường gặp</h2>
+                            
+                            <div class="accordion" id="faqAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                            Phiên bản web có đầy đủ tính năng như phiên bản desktop không?
+                                        </button>
+                                    </h2>
+                                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Không, phiên bản web có các tính năng giới hạn. Một số tính năng nâng cao như mod hiệu ứng và xử lý ảnh phức tạp chỉ có trong phiên bản desktop do yêu cầu quyền truy cập vào hệ thống tệp cục bộ.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                            Có an toàn khi sử dụng các tính năng mod trong game không?
+                                        </button>
+                                    </h2>
+                                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Công cụ mod chỉ thay đổi tệp cục bộ và không can thiệp vào server game. Tuy nhiên, việc sử dụng mod luôn đi kèm rủi ro. Chúng tôi khuyến nghị chỉ sử dụng mod trong chế độ thử nghiệm hoặc tùy chỉnh hình ảnh cá nhân, không nên sử dụng trong các trận đấu xếp hạng.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                            Tại sao tôi nên sử dụng ZSTD thay vì ZIP thông thường?
+                                        </button>
+                                    </h2>
+                                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            ZSTD (Zstandard) là thuật toán nén hiện đại với tỷ lệ nén cao hơn và tốc độ nén/giải nén nhanh hơn nhiều so với ZIP truyền thống. Đặc biệt với các tệp game và ảnh, ZSTD có thể tiết kiệm đáng kể không gian lưu trữ trong khi vẫn duy trì tốc độ giải nén vượt trội.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                            Làm sao để báo cáo lỗi hoặc đề xuất tính năng mới?
+                                        </button>
+                                    </h2>
+                                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Bạn có thể báo cáo lỗi hoặc đề xuất tính năng mới thông qua trang <a href="/about">Thông tin</a>, nơi có liên kết đến GitHub và các phương thức liên hệ khác với nhóm phát triển.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                            Công cụ này có tương thích với phiên bản AOV mới nhất không?
+                                        </button>
+                                    </h2>
+                                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            Chúng tôi thường xuyên cập nhật công cụ để tương thích với các phiên bản mới nhất của Arena of Valor. Tuy nhiên, sau mỗi bản cập nhật lớn của game, có thể cần vài ngày để chúng tôi điều chỉnh công cụ cho phù hợp. Vui lòng kiểm tra trang tải về để cập nhật phiên bản mới nhất của công cụ.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Dev0x4 AOV Tool - Web Edition</h5>
+                    <p class="text-muted">Công cụ hỗ trợ cho game Arena of Valor</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <a href="/about" class="text-light me-3">Thông tin</a>
+                        <a href="/guide" class="text-light me-3">Hướng dẫn</a>
+                        <a href="{{ url_for('download') }}" class="text-light">Tải về</a>
+                    </p>
+                    <p class="text-muted">© 2025 Dev0x4 AOV Tool</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

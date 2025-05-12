@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả xử lý ảnh - Dev0x4 AOV Tool</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Thanh điều hướng -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="me-2">🛠️</span>Dev0x4 AOV Tool
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" title="Trang chủ">
+                            <i class="bi bi-house-fill"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/image/split" title="Quay lại">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show mb-4">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+                        <h1 class="h3 fw-bold text-primary mb-4">Kết quả xử lý ảnh</h1>
+                        
+                        {% if files %}
+                            <div class="row g-4">
+                                {% for file in files %}
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card h-100">
+                                        <img src="{{ url_for('download_processed_image', filename=file) }}" class="card-img-top" alt="{{ file }}">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-truncate">{{ file }}</h5>
+                                            <a href="{{ url_for('download_processed_image', filename=file) }}" class="btn btn-primary btn-sm">
+                                                <i class="bi bi-download me-2"></i>Tải về
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-5">
+                                <p class="text-muted mb-0">Không có file nào được xử lý</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tách ảnh - Dev0x4 AOV Tool</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="me-2">🛠️</span>Dev0x4 AOV Tool
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" title="Trang chủ">
+                            <i class="bi bi-house-fill"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide" title="Hướng dẫn">
+                            <i class="bi bi-book-fill"></i> Hướng dẫn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" title="Thông tin">
+                            <i class="bi bi-info-circle-fill"></i> Thông tin
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/download" title="Tải về">
+                            <i class="bi bi-download"></i> Tải về
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Thông báo flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show mb-4">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+                        <h1 class="h3 fw-bold text-primary mb-4">Tách ảnh</h1>
+                        
+                        <p class="mb-4">Công cụ này cho phép bạn tách một ảnh lớn thành nhiều ảnh nhỏ hơn theo nhiều tiêu chí khác nhau.</p>
+                        
+                        <form action="{{ url_for('image_split_process') }}" method="post" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <label for="image" class="form-label fw-bold">Chọn ảnh cần tách</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="imagePreviewBtn">Xem trước</button>
+                                </div>
+                                <div class="form-text">Hỗ trợ các định dạng: PNG, JPG, JPEG, GIF, BMP</div>
+                            </div>
+
+                            <div id="imagePreview" class="text-center mb-4 d-none">
+                                <img src="" alt="Xem trước" class="img-fluid rounded border shadow-sm" style="max-height: 300px;">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Phương thức tách</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="split_method" id="methodSize" value="size" checked>
+                                    <label class="form-check-label" for="methodSize">
+                                        Tách theo kích thước
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="split_method" id="methodGrid" value="grid">
+                                    <label class="form-check-label" for="methodGrid">
+                                        Tách theo lưới
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="split_method" id="methodColor" value="color">
+                                    <label class="form-check-label" for="methodColor">
+                                        Tách theo màu sắc
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div id="sizeOptions" class="mb-4 border-start ps-4 py-3">
+                                <h5 class="h6 mb-3">Tùy chọn tách theo kích thước</h5>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="width" class="form-label">Chiều rộng (px)</label>
+                                        <input type="number" class="form-control" id="width" name="width" value="100" min="10">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="height" class="form-label">Chiều cao (px)</label>
+                                        <input type="number" class="form-control" id="height" name="height" value="100" min="10">
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="aspectRatio" name="maintain_ratio">
+                                    <label class="form-check-label" for="aspectRatio">
+                                        Giữ tỷ lệ khung hình
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div id="gridOptions" class="mb-4 border-start ps-4 py-3 d-none">
+                                <h5 class="h6 mb-3">Tùy chọn tách theo lưới</h5>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="rows" class="form-label">Số hàng</label>
+                                        <input type="number" class="form-control" id="rows" name="rows" value="2" min="1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="columns" class="form-label">Số cột</label>
+                                        <input type="number" class="form-control" id="columns" name="columns" value="2" min="1">
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="equalSize" name="equal_size" checked>
+                                    <label class="form-check-label" for="equalSize">
+                                        Các phần có kích thước bằng nhau
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div id="colorOptions" class="mb-4 border-start ps-4 py-3 d-none">
+                                <h5 class="h6 mb-3">Tùy chọn tách theo màu sắc</h5>
+                                <div class="mb-3">
+                                    <label for="colorThreshold" class="form-label">Ngưỡng màu (0-255)</label>
+                                    <input type="range" class="form-range" id="colorThreshold" name="color_threshold" min="0" max="255" value="50">
+                                    <div class="d-flex justify-content-between">
+                                        <small>Nhạy (0)</small>
+                                        <small>Trung bình</small>
+                                        <small>Mạnh (255)</small>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ignoreBackground" name="ignore_background" checked>
+                                    <label class="form-check-label" for="ignoreBackground">
+                                        Bỏ qua màu nền
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="outputFormat" class="form-label fw-bold">Định dạng xuất</label>
+                                <select class="form-select" id="outputFormat" name="output_format">
+                                    <option value="png">PNG</option>
+                                    <option value="jpg">JPG</option>
+                                    <option value="gif">GIF</option>
+                                    <option value="bmp">BMP</option>
+                                </select>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-scissors me-2"></i>Tách ảnh
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-info bg-opacity-25">
+                        <h5 class="mb-0">
+                            <i class="bi bi-lightbulb me-2"></i>Mẹo
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li class="mb-2">Khi tách ảnh theo kích thước, bạn nên chọn "Giữ tỷ lệ khung hình" để tránh bị méo ảnh.</li>
+                            <li class="mb-2">Tách theo lưới rất hữu ích khi bạn muốn chia đều một ảnh thành nhiều phần.</li>
+                            <li class="mb-2">Tách theo màu sắc giúp tách các đối tượng khỏi nền, nhưng có thể không chính xác với ảnh phức tạp.</li>
+                            <li>Đối với tệp ảnh lớn, quá trình tách có thể mất nhiều thời gian hơn. Hãy kiên nhẫn chờ đợi.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-4">
+                    <a href="/download" class="btn btn-outline-primary">
+                        <i class="bi bi-download me-2"></i>Tải về phiên bản đầy đủ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Dev0x4 AOV Tool - Web Edition</h5>
+                    <p class="text-muted">Công cụ hỗ trợ cho game Arena of Valor</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <a href="/about" class="text-light me-3">Thông tin</a>
+                        <a href="/guide" class="text-light me-3">Hướng dẫn</a>
+                        <a href="{{ url_for('download') }}" class="text-light">Tải về</a>
+                    </p>
+                    <p class="text-muted">© 2025 Dev0x4 AOV Tool</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript để xử lý xem trước ảnh và chuyển đổi giữa các tùy chọn
+        document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý xem trước ảnh
+            const imageInput = document.getElementById('image');
+            const imagePreviewBtn = document.getElementById('imagePreviewBtn');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewImage = imagePreview.querySelector('img');
+            
+            imagePreviewBtn.addEventListener('click', function() {
+                if (imageInput.files && imageInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        imagePreview.classList.remove('d-none');
+                    }
+                    reader.readAsDataURL(imageInput.files[0]);
+                } else {
+                    alert('Vui lòng chọn ảnh trước');
+                }
+            });
+            
+            // Xử lý chuyển đổi giữa các phương thức tách
+            const methodRadios = document.querySelectorAll('input[name="split_method"]');
+            const sizeOptions = document.getElementById('sizeOptions');
+            const gridOptions = document.getElementById('gridOptions');
+            const colorOptions = document.getElementById('colorOptions');
+            
+            methodRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    sizeOptions.classList.add('d-none');
+                    gridOptions.classList.add('d-none');
+                    colorOptions.classList.add('d-none');
+                    
+                    if (this.value === 'size') {
+                        sizeOptions.classList.remove('d-none');
+                    } else if (this.value === 'grid') {
+                        gridOptions.classList.remove('d-none');
+                    } else if (this.value === 'color') {
+                        colorOptions.classList.remove('d-none');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+/* Custom styles for Dev0x4 AOV Tool Web Edition */
+
+/* Feature icon style */
+.feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
+
+/* Make footer stick to bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    margin-top: auto;
+}
+
+
+
+/* Card hover effect */
+.card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Rounded buttons and elements */
+.btn {
+    border-radius: 8px;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.alert {
+    border-radius: 10px;
+}
+
+/* Image split form styling */
+#sizeOptions, #gridOptions, #colorOptions {
+    border-left: 3px solid var(--bs-primary) !important;
+}
+
+/* Progress bar */
+.progress-bar-container {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin-top: 10px;
+    display: none;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 4px;
+    background-color: var(--bs-primary);
+    border-radius: 4px;
+    transition: width 3s linear;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.5);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.8);
+}
+
+/* Custom list styles */
+ul:not(.list-unstyled):not(.navbar-nav):not(.list-group) li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+ul:not(.list-unstyled):not(.navbar-nav):not(.list-group) li::before {
+    content: "•";
+    color: var(--bs-primary);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Code styling */
+code {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.875em;
+}
+
+pre {
+    border-radius: 10px;
+}
+
+/* Flash message styling */
+.alert {
+    border-left: 4px solid;
+}
+
+.alert-info {
+    border-left-color: var(--bs-info);
+}
+
+.alert-success {
+    border-left-color: var(--bs-success);
+}
+
+.alert-warning {
+    border-left-color: var(--bs-warning);
+}
+
+.alert-danger {
+    border-left-color: var(--bs-danger);
+}
+
+/* Sticky navigation on scroll */
+.sticky-top {
+    top: 1rem;
+}
+
+/* Ensuring consistent spacing */
+section {
+    margin-bottom: 3rem;
+}
+
+h2, h3, h4, h5, h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}

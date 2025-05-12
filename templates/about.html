@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin - Dev0x4 AOV Tool</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="me-2">🛠️</span>Dev0x4 AOV Tool
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" title="Trang chủ">
+                            <i class="bi bi-house-fill"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide" title="Hướng dẫn">
+                            <i class="bi bi-book-fill"></i> Hướng dẫn
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about" title="Thông tin">
+                            <i class="bi bi-info-circle-fill"></i> Thông tin
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/download" title="Tải về">
+                            <i class="bi bi-download"></i> Tải về
+                        </a>
+                    </li>
+                </ul>
+                <div class="ms-3">
+                    {% if not user %}
+                        <a href="#" class="btn btn-primary btn-sm" onclick="LoginWithReplit()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Nhấn để đăng nhập với tài khoản Replit">
+                            <i class="bi bi-person-circle"></i> Đăng nhập
+                        </a>
+                    {% else %}
+                        <span class="navbar-text me-3">
+                            <i class="bi bi-person-circle"></i> {{ user.name }}
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+                        <h1 class="display-5 fw-bold text-primary mb-4">Giới thiệu về Dev0x4 Tool</h1>
+                        
+                        <div class="alert alert-info mb-4">
+                            <div class="d-flex">
+                                <div class="me-3">
+                                    <i class="bi bi-info-circle fs-4"></i>
+                                </div>
+                                <div>
+                                    <strong>Phiên bản hiện tại:</strong> 1.0.0<br>
+                                    <strong>Ngày cập nhật:</strong> {{ current_date }}<br>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h2 class="h4 mb-3">Mục đích phát triển</h2>
+                        <p>Dev0x4 AOV Tool được phát triển với mục đích hỗ trợ người chơi Arena of Valor (Liên Quân Mobile) trong việc tùy chỉnh và nâng cao trải nghiệm chơi game. Công cụ này tập hợp nhiều tính năng hữu ích, từ xử lý ảnh, nén tệp ZSTD đến công cụ mod hiệu ứng trong game.</p>
+                        
+                        <h2 class="h4 mb-3 mt-4">Tính năng chính</h2>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-header">Xử lý ảnh</div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li>Tách ảnh theo nhiều điều kiện</li>
+                                            <li>Chuyển ảnh thành văn bản ASCII</li>
+                                            <li>Quản lý và dọn dẹp ảnh đã tạo</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-header">Nén và giải nén ZSTD</div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li>Nén tệp hoặc thư mục với tỷ lệ cao</li>
+                                            <li>Giải nén dữ liệu ZSTD nhanh chóng</li>
+                                            <li>Tạo từ điển ZSTD tùy chỉnh</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-header">Công cụ Mod AOV</div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li>Mod hiệu ứng tướng và trang phục</li>
+                                            <li>Tra cứu ID tướng và skin</li>
+                                            <li>Hướng dẫn sử dụng mod chi tiết</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-header">Tiện ích</div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li>Chatbot trợ giúp thông minh</li>
+                                            <li>Tích hợp ChatGPT (với API key)</li>
+                                            <li>Xem nội dung tệp ZIP</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h2 class="h4 mb-3 mt-4">Phiên bản</h2>
+                        <p>Dev0x4 Tool hiện có hai phiên bản chính:</p>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header text-primary fw-bold">
+                                        <i class="bi bi-pc-display me-2"></i>Phiên bản Desktop (GUI)
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Phiên bản đầy đủ với giao diện người dùng đồ họa hiện đại theo phong cách Windows 11, hỗ trợ tất cả tính năng và có thể sử dụng offline.</p>
+                                        <a href="/download" class="btn btn-primary btn-sm mt-2">
+                                            <i class="bi bi-download me-2"></i>Tải về
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 border-info">
+                                    <div class="card-header text-info fw-bold">
+                                        <i class="bi bi-globe me-2"></i>Phiên bản Web
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Phiên bản trực tuyến với giao diện web thân thiện, cho phép sử dụng các tính năng cơ bản mà không cần cài đặt.</p>
+                                        <span class="badge bg-success">Bạn đang sử dụng</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h2 class="h4 mb-3 mt-4">Liên hệ và góp ý</h2>
+                        <p>Nếu bạn có góp ý, phản hồi hoặc muốn báo cáo lỗi, vui lòng liên hệ thông qua các kênh sau:</p>
+                        <ul>
+                            <li><i class="bi bi-envelope me-2"></i>Email: <a href="mailto:Dev0x4AOV@gmail.com">Dev0x4AOV@gmail.com</a></li>
+                            <li><i class="bi bi-youtube me-2"></i>YouTube: <a href="http://youtube.com/@Dev0x4AOV" target="_blank">youtube/dev0x4</a></li>
+                            <li><i class="bi bi-github me-2"></i>GitHub: <a href="https://github.com" target="_blank">dev0x4</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Dev0x4 AOV Tool - Web Edition</h5>
+                    <p class="text-muted">Công cụ hỗ trợ cho game Arena of Valor</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <a href="/about" class="text-light me-3">Thông tin</a>
+                        <a href="/guide" class="text-light me-3">Hướng dẫn</a>
+                        <a href="{{ url_for('download') }}" class="text-light">Tải về</a>
+                    </p>
+                    <p class="text-muted">© 2025 Dev0x4 AOV Tool</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
